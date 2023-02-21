@@ -8,6 +8,7 @@
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![Testing-Library](https://img.shields.io/badge/-TestingLibrary-%23E33332?style=for-the-badge&logo=testing-library&logoColor=white)
 ![PNPM](https://img.shields.io/badge/pnpm-%234a4a4a.svg?style=for-the-badge&logo=pnpm&logoColor=f69220)
+![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
 
 [![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli)
 
@@ -43,8 +44,6 @@ starter app to kick-off their Front-End Projects using React-TypeScript.
 1. [Vitest](https://vitest.dev/) - Example Followed: [react-testing-lib-msw](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib-msw)
 2. [Jest DOM](https://github.com/testing-library/jest-dom)
 3. [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
-
-### Version Control System: [Git](https://git-scm.com/)
 
 # How to use it
 
