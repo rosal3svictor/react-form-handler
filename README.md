@@ -34,7 +34,7 @@ starter app to kick-off their Front-End Projects using React-TypeScript.
 
 ### Testing Tools:
 
-1. [Vitest](https://vitest.dev/) - [react-testing-lib-msw](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib-msw)
+1. [Vitest](https://vitest.dev/) - Example Followed: [react-testing-lib-msw](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib-msw)
 2. [Jest DOM](https://github.com/testing-library/jest-dom)
 3. [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
 
@@ -60,7 +60,7 @@ follow, it has been installed the following resources to work with:
 
 So, in order to commit your changes, it'll be required to make usage of the
 _commitizen command_ `pnpm run commit:changes`. This will execute
-`git add -A && cz` for you prompting you to start writting your commit message
+`git add -A && cz` , prompting you to start writting your commit message
 and creating a new version for the project.
 
 # References
