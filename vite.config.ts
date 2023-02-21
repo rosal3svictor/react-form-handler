@@ -9,8 +9,10 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   test: {
+    // This will expose all of the API's method from Vite into the project
     globals: true,
     environment: 'jsdom',
-    setupFiles: ['./src/setupTests.ts'],
+    // This file will run at the beginning of every test run
+    setupFiles: ['./src/testsSetup.ts'],
   },
 });

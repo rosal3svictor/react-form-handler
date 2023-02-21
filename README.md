@@ -3,25 +3,18 @@
     <h1> React-TypeScript Boilerplate App </h1>
 </div>
 
-![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![Testing-Library](https://img.shields.io/badge/-TestingLibrary-%23E33332?style=for-the-badge&logo=testing-library&logoColor=white)
-![PNPM](https://img.shields.io/badge/pnpm-%234a4a4a.svg?style=for-the-badge&logo=pnpm&logoColor=f69220)
-![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
-
-[![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli)
-
-# Introduction
-
 This repository was created with the intention of providing developers with a
 starter app to kick-off their Front-End Projects using React-TypeScript.
 
 # Frontend Tooling
 
-### Development Server: [Vite](https://vitejs.dev/)
-
-### JavaScript Package Manager: [PNPM](https://pnpm.io/)
+[![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
+[![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Testing-Library](https://img.shields.io/badge/-TestingLibrary-%23E33332?style=for-the-badge&logo=testing-library&logoColor=white)](https://testing-library.com/docs/react-testing-library/intro/)
+[![PNPM](https://img.shields.io/badge/pnpm-%234a4a4a.svg?style=for-the-badge&logo=pnpm&logoColor=f69220)](https://pnpm.io/)
+[![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)](https://eslint.org/)
+[![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli)
 
 ### Linters:
 
@@ -41,9 +34,14 @@ starter app to kick-off their Front-End Projects using React-TypeScript.
 
 ### Testing Tools:
 
-1. [Vitest](https://vitest.dev/) - Example Followed: [react-testing-lib-msw](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib-msw)
-2. [Jest DOM](https://github.com/testing-library/jest-dom)
-3. [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
+1. [Vitest](https://vitest.dev/) - This is our test runner. It's the tool that
+   will find all of the test files in the directory and the run them
+2. [Jest DOM](https://github.com/testing-library/jest-dom) - It's a library that
+   essentially allows us to do DOM-like things without a web browser, since all
+   of the components are tested in isolation
+3. [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) -
+   It's a library that provides you with a set of utilities to specifically test
+   React Components
 
 # How to use it
 
