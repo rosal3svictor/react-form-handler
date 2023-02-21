@@ -60,7 +60,7 @@ follow, it has been installed the following resources to work with:
 
 So, in order to commit your changes, it'll be required to make usage of the
 _commitizen command_ `pnpm run commit:changes`. This will execute
-`git add -A && cz` , prompting you to start writting your commit message
+`git add -A && cz` , prompting you to start writing your commit message
 and creating a new version for the project.
 
 # References
