@@ -5,7 +5,7 @@
 
 [![Commitizen Friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli)
 
-## Introduction
+# Introduction
 
 This repository was created with the intention of providing developers with a
 starter app to kick-off their Front-End Projects using React-TypeScript.
@@ -46,7 +46,7 @@ starter app to kick-off their Front-End Projects using React-TypeScript.
 2. Execute `pnpm install` to perform the instalation of all dependencies.
 3. Execute `pnpm run dev`, and immediately you will see the vite server running.
 
-## Committing Changes Into The Project
+# Committing Changes Into The Project
 
 In order to work under a standard that every contributor in the project must
 follow, it has been installed the following resources to work with:
