@@ -31,6 +31,8 @@ starter app to kick-off their Front-End Projects using React-TypeScript.
 3. [Eslint Plugin Prettier](https://github.com/prettier/eslint-plugin-prettier)
 4. [Eslint Plugin React](https://github.com/jsx-eslint/eslint-plugin-react)
 5. [Eslint Plugin React-Hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks)
+6. [Eslint Plugin Testing Library](https://github.com/testing-library/eslint-plugin-testing-library)
+7. [Eslint Plugin Jest DOM](https://github.com/testing-library/eslint-plugin-jest-dom)
 
 ### Testing Tools:
 
