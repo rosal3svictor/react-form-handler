@@ -45,6 +45,10 @@ starter app to kick-off their Front-End Projects using React-TypeScript.
    It's a library that provides you with a set of utilities to specifically test
    React Components
 
+### Documentation Standard
+
+1. [TSDoc](https://tsdoc.org/)
+
 # How to use it
 
 1. Install pnpm globally in your machine [Documentation](https://pnpm.io/installation).

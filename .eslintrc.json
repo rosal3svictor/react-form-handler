@@ -24,13 +24,15 @@
   "plugins": [
     "react",
     "@typescript-eslint",
-    "prettier",
     "testing-library",
-    "jest-dom"
+    "jest-dom",
+    "eslint-plugin-tsdoc",
+    "prettier"
   ],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "no-shadow": "off",
-    "@typescript-eslint/no-shadow": "warn"
+    "@typescript-eslint/no-shadow": "warn",
+    "tsdoc/syntax": "warn"
   }
 }

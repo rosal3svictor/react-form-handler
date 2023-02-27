@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "test": "vitest --ui",
+    "coverage": "vitest run --coverage",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "prepare": "husky install",
@@ -19,12 +20,14 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@types/testing-library__jest-dom": "^5.14.5",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
     "@vitejs/plugin-react": "^3.1.0",
+    "@vitest/coverage-c8": "^0.29.1",
     "@vitest/ui": "^0.28.5",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
@@ -39,13 +42,14 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-testing-library": "^5.10.2",
+    "eslint-plugin-tsdoc": "^0.2.17",
     "husky": "^8.0.3",
     "jest-dom": "link:@types/@testing-library/jest-dom",
     "lint-staged": "^13.1.2",
     "prettier": "^2.8.4",
     "typescript": "^4.9.3",
     "vite": "^4.1.0",
-    "vitest": "^0.28.5"
+    "vitest": "^0.29.1"
   },
   "config": {
     "commitizen": {
