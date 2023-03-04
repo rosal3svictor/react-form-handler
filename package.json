@@ -1,5 +1,5 @@
 {
-  "name": "react-ts-app-boilerplate",
+  "name": "react-form-handler",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -14,14 +14,19 @@
     "commit:changes": "git add -A && cz"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.4",
+    "yup": "^1.0.2"
   },
   "devDependencies": {
+    "@hookform/resolvers": "^2.9.11",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.4.3",
+    "@types/lodash": "^4.14.191",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@types/testing-library__jest-dom": "^5.14.5",
@@ -46,10 +51,12 @@
     "eslint-plugin-tsdoc": "^0.2.17",
     "husky": "^8.0.3",
     "jest-dom": "link:@types/@testing-library/jest-dom",
+    "jsdom": "^21.1.0",
     "lint-staged": "^13.1.2",
     "prettier": "^2.8.4",
     "typescript": "^4.9.3",
     "vite": "^4.1.0",
+    "vite-aliases": "^0.10.0",
     "vitest": "^0.29.1"
   },
   "config": {
