@@ -1,10 +1,8 @@
 import {
   DefaultValues,
   Mode,
-  Path,
   UseFormProps,
   SetValueConfig,
-  KeepStateOptions,
 } from 'react-hook-form';
 import { ObjectSchema, AnyObject } from 'yup';
 import { useFormHandler } from '@utils';
@@ -22,12 +20,7 @@ export interface FormHandlerProps<T> {
 export interface SetValueProps {
   name: string;
   value: unknown;
-  options?: SetValueConfig;
-}
-
-export interface ResetFieldProps<T> {
-  name: Path<T>;
-  options?: KeepStateOptions;
+  options?: Omit<SetValueConfig, 'shouldValidate' | 'shouldDirty'>;
 }
 
 export type UseFormReturn = typeof useFormHandler;

@@ -11,7 +11,7 @@ describe('useFormHelper Hook', () => {
   it('Returns the expected key names', () => {
     const { result } = performRender();
 
-    expect(Object.keys(result.current)).toMatchObject([
+    expect(Object.keys(result.current)).toStrictEqual([
       'context',
       'useFormContext',
     ]);
@@ -20,7 +20,7 @@ describe('useFormHelper Hook', () => {
   it('Properties type definitions are the expected for those keys', () => {
     const { result } = performRender();
 
-    expect(result.current).toEqual({
+    expect(result.current).toStrictEqual({
       context: expect.any(Object),
       useFormContext: expect.any(Function),
     });

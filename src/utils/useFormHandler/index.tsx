@@ -6,7 +6,7 @@ import {
   KeepStateOptions,
   PathValue,
 } from 'react-hook-form';
-import { FormHandlerProps, ResetFieldProps, SetValueProps } from '@interfaces';
+import { FormHandlerProps, SetValueProps } from '@interfaces';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { isEqual } from 'lodash';
 
@@ -125,7 +125,7 @@ const useFormHandler = <T extends FieldValues>(props: FormHandlerProps<T>) => {
     formInstance.setValue(
       args.name as Path<T>,
       args.value as PathValue<T, Path<T>>,
-      args.options,
+      { shouldValidate: true, shouldDirty: true, ...args.options },
     );
   };
 
@@ -138,7 +138,12 @@ const useFormHandler = <T extends FieldValues>(props: FormHandlerProps<T>) => {
   const formState = () => {
     const { defaultValues, isValid, errors } = formInstance.formState;
 
-    return { defaultValues, isValid, errors };
+    return {
+      defaultValues,
+      currentState: formInstance.getValues(),
+      isValid,
+      errors,
+    };
   };
 
   /**
@@ -149,33 +154,38 @@ const useFormHandler = <T extends FieldValues>(props: FormHandlerProps<T>) => {
    * Link to official documentation {@link https://react-hook-form.com/api/useform/getfieldstate}
    */
   const fieldState = (name: Path<T>) => {
-    const { invalid, error } = formInstance.getFieldState(name);
+    const { isDirty, isTouched, invalid, error } =
+      formInstance.getFieldState(name);
 
-    return { invalid, error };
+    return { isDirty, isTouched, invalid, error };
   };
 
   /**
-   * An optimized helper for reading form values. The difference between watch
-   * and getValues is that getValues will not trigger re-renders or subscribe to
-   * input changes.
+   * This function can manually clear errors in the form.
    *
-   * Link to official documentation {@link https://react-hook-form.com/api/useform/getvalues}
+   * Link to official documentation {@link https://react-hook-form.com/api/useform/clearerrors}
    */
-  const getFieldValue = (name: Path<T>) => formInstance.getValues(name);
-
   const clearErrors = (input?: Path<T> | Array<Path<T>>) => {
     if (typeof input === 'string') formInstance.clearErrors(input);
     if (typeof input === 'object') formInstance.clearErrors(input);
     formInstance.clearErrors();
   };
 
-  /**
-   * Reset an individual field state.
-   *
-   * Link to official documentation {@link https://react-hook-form.com/api/useform/resetfield}
-   */
-  const resetField = (args: ResetFieldProps<T>) => {
-    formInstance.resetField(args.name, args.options);
+  /** https://github.com/react-hook-form/react-hook-form/discussions/7749 */
+  const resetField = (args: SetValueProps) => {
+    clearErrors(args.name as Path<T>);
+    setFormValue({
+      name: args.name,
+      value: args.value,
+      ...args.options,
+    });
+  };
+
+  /** https://github.com/react-hook-form/react-hook-form/discussions/7749 */
+  const partialReset = (input: Array<SetValueProps>) => {
+    input.forEach((field) => {
+      resetField(field);
+    });
   };
 
   /**
@@ -196,7 +206,7 @@ const useFormHandler = <T extends FieldValues>(props: FormHandlerProps<T>) => {
    *
    * Link to official documentation {@link https://react-hook-form.com/api/useform/trigger}
    */
-  const validateField = (input?: string | Array<string>) => {
+  const triggerValidation = (input?: string | Array<string>) => {
     if (typeof input === 'string')
       return formInstance.trigger(input as Path<T>);
     if (typeof input === 'object')
@@ -211,7 +221,7 @@ const useFormHandler = <T extends FieldValues>(props: FormHandlerProps<T>) => {
    * to verify if the form has had changes from its initial state.
    */
   const formHasChanges = () =>
-    isEqual(props.defaultValues, formInstance.getValues());
+    !isEqual(props.defaultValues, formInstance.getValues());
 
   return {
     setFormValue,
@@ -219,9 +229,9 @@ const useFormHandler = <T extends FieldValues>(props: FormHandlerProps<T>) => {
     fieldState,
     clearErrors,
     resetField,
+    partialReset,
     resetForm,
-    getFieldValue,
-    validateField,
+    triggerValidation,
     formHasChanges,
   };
 };
