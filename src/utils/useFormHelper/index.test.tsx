@@ -2,6 +2,9 @@
 import { renderHook, RenderHookResult } from '@testing-library/react-hooks';
 import useFormHelper from '.';
 
+/**
+ * This function was created to comply with this rule {@link https://github.com/testing-library/eslint-plugin-testing-library/blob/main/docs/rules/no-render-in-setup.md}
+ */
 const performRender = (): RenderHookResult<
   null,
   ReturnType<typeof useFormHelper>

@@ -7,6 +7,7 @@ import {
 import { ObjectSchema, AnyObject } from 'yup';
 import { useFormHandler } from '@utils';
 
+/** General Form Instance Definition */
 export interface FormHandlerProps<T> {
   defaultValues: DefaultValues<T>;
   schema: ObjectSchema<T & AnyObject>;
@@ -17,6 +18,7 @@ export interface FormHandlerProps<T> {
   >;
 }
 
+/** Properties for assigning a value to a registered field */
 export interface SetValueProps {
   name: string;
   value: unknown;
