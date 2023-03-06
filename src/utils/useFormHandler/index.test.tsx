@@ -1,29 +1,11 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { waitFor } from '@testing-library/react';
-import * as yup from 'yup';
+import { defaultValues, schema } from './mocks';
 import useFormHandler from '.';
 
-export interface DemoFormSchema {
-  name: string;
-  lastName: string;
-  sex: 'M' | 'F';
-  email: string;
-}
-
-const defaultValues: DemoFormSchema = {
-  name: 'Victor',
-  lastName: 'Rosales',
-  sex: 'M',
-  email: 'rosalesvictor.dev@gmail.com',
-};
-
-const schema = yup.object().shape<Record<keyof DemoFormSchema, yup.Schema>>({
-  name: yup.string().required(),
-  lastName: yup.string().required(),
-  sex: yup.mixed().oneOf(['F', 'M']).required(),
-  email: yup.string().required(),
-});
-
+/**
+ * This function was created to comply with this rule {@link https://github.com/testing-library/eslint-plugin-testing-library/blob/main/docs/rules/no-render-in-setup.md}
+ */
 const performRender = () =>
   renderHook(() =>
     useFormHandler({
@@ -33,7 +15,7 @@ const performRender = () =>
   );
 
 describe('useFormHandler Hook', () => {
-  it('Returns the expected key names', () => {
+  it('Returns methods exposing individual functions to manage the form state', () => {
     const { result } = performRender();
 
     expect(Object.keys(result.current)).toEqual([
@@ -49,7 +31,7 @@ describe('useFormHandler Hook', () => {
     ]);
   });
 
-  it('Properties type definitions are the expected for those keys', () => {
+  it('Type definitions for the previous methods returned are the expected', () => {
     const { result } = performRender();
 
     expect(result.current).toEqual({
@@ -65,8 +47,8 @@ describe('useFormHandler Hook', () => {
     });
   });
 
-  describe('Hook functionalities', () => {
-    it('setFormValue works as expected', async () => {
+  describe('Hook functionalities work as expected', () => {
+    it('setFormValue - Dynamically sets the value of a registered field', async () => {
       const {
         result: {
           current: { setFormValue, formState },
@@ -82,7 +64,7 @@ describe('useFormHandler Hook', () => {
       expect(formState().currentState.name).toBe(newPropertyValue);
     });
 
-    it('formState method returns what is expected', () => {
+    it('formState - Returns an object containing information about the entire form state', () => {
       const {
         result: {
           current: { formState },
@@ -108,7 +90,7 @@ describe('useFormHandler Hook', () => {
       });
     });
 
-    it('fieldState method returns what is expected', () => {
+    it('fieldState - Returns individual field state', () => {
       const {
         result: {
           current: { fieldState },
@@ -136,7 +118,7 @@ describe('useFormHandler Hook', () => {
       });
     });
 
-    it('clearErrors works as expected', async () => {
+    it('clearErrors - Function through which it can be manually cleared errors in the form', async () => {
       const {
         result: {
           current: { setFormValue, fieldState, clearErrors },
@@ -161,7 +143,7 @@ describe('useFormHandler Hook', () => {
       expect(fieldState('sex').invalid).toBeFalsy();
     });
 
-    it('resetField works as expected', async () => {
+    it('resetField - Resets the value for a single registered field', async () => {
       const {
         result: {
           current: { setFormValue, resetField, formState },
@@ -185,7 +167,7 @@ describe('useFormHandler Hook', () => {
       expect(formState().currentState.name).toEqual('');
     });
 
-    it('partialReset works as expected', async () => {
+    it('partialReset - Resets the value for a group of registered fields', async () => {
       const {
         result: {
           current: { partialReset, formState },
@@ -209,7 +191,7 @@ describe('useFormHandler Hook', () => {
       expect(formState().currentState.lastName).toEqual('Rock');
     });
 
-    it('resetForm works as expected', async () => {
+    it('resetForm - Reset the entire form state, fields reference, and subscriptions', async () => {
       const {
         result: {
           current: { formState, resetForm },
@@ -234,7 +216,7 @@ describe('useFormHandler Hook', () => {
       });
     });
 
-    it('triggerValidation works as expected', async () => {
+    it('triggerValidation - Manually triggers form or input validation', async () => {
       const {
         result: {
           current: { triggerValidation, fieldState, resetForm },
@@ -259,7 +241,7 @@ describe('useFormHandler Hook', () => {
       expect(fieldState('email').invalid).toBeTruthy();
     });
 
-    it('formHasChanges works as expected', async () => {
+    it('formHasChanges - Performs a deep comparison between "defaultValues" and the current form state to determine if they are equivalent', async () => {
       const {
         result: {
           current: { setFormValue, formHasChanges },

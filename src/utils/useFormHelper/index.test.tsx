@@ -8,7 +8,7 @@ const performRender = (): RenderHookResult<
 > => renderHook(useFormHelper);
 
 describe('useFormHelper Hook', () => {
-  it('Returns the expected key names', () => {
+  it('Returns a new context for a form instance and the hook to read and subscribe to it', () => {
     const { result } = performRender();
 
     expect(Object.keys(result.current)).toStrictEqual([
@@ -17,7 +17,7 @@ describe('useFormHelper Hook', () => {
     ]);
   });
 
-  it('Properties type definitions are the expected for those keys', () => {
+  it('Type definitions for the previous context and custom hook returned are the expected', () => {
     const { result } = performRender();
 
     expect(result.current).toStrictEqual({

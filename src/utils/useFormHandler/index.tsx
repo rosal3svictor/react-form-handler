@@ -163,7 +163,7 @@ const useFormHandler = <T extends FieldValues>(props: FormHandlerProps<T>) => {
   /**
    * This function can manually clear errors in the form.
    *
-   * Link to official documentation {@link https://react-hook-form.com/api/useform/clearerrors}
+   * Link to official documentation {@link https://github.com/react-hook-form/react-hook-form/discussions/2704}
    */
   const clearErrors = (input?: Path<T> | Array<Path<T>>) => {
     if (typeof input === 'string') formInstance.clearErrors(input);
@@ -171,7 +171,11 @@ const useFormHandler = <T extends FieldValues>(props: FormHandlerProps<T>) => {
     formInstance.clearErrors();
   };
 
-  /** https://github.com/react-hook-form/react-hook-form/discussions/7749 */
+  /**
+   * Reset the value for a single registered field.
+   *
+   * Link to official repository discussion to perform a partial form reset {@link https://github.com/react-hook-form/react-hook-form/discussions/2704}
+   */
   const resetField = (args: SetValueProps) => {
     clearErrors(args.name as Path<T>);
     setFormValue({
@@ -181,7 +185,11 @@ const useFormHandler = <T extends FieldValues>(props: FormHandlerProps<T>) => {
     });
   };
 
-  /** https://github.com/react-hook-form/react-hook-form/discussions/7749 */
+  /**
+   * Reset the value for a group of registered fields.
+   *
+   * Link to official repository discussion to perform a partial form reset {@link https://github.com/react-hook-form/react-hook-form/discussions/2704}
+   */
   const partialReset = (input: Array<SetValueProps>) => {
     input.forEach((field) => {
       resetField(field);
@@ -216,7 +224,7 @@ const useFormHandler = <T extends FieldValues>(props: FormHandlerProps<T>) => {
   };
 
   /**
-   * Performs a deep comparison between 'defaultValues' the current form state
+   * Performs a deep comparison between 'defaultValues' and the current form state
    * to determine if they are equivalent. This method is useful when you require
    * to verify if the form has had changes from its initial state.
    */
