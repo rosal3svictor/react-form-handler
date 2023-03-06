@@ -12,7 +12,8 @@
     "preview": "vite preview",
     "prepare": "husky install",
     "lint:fix": "eslint --fix .",
-    "commit:changes": "git add -A && cz"
+    "commit:changes": "git add -A && cz",
+    "ci": "pnpm install --frozen-lockfile"
   },
   "dependencies": {
     "lodash": "^4.17.21",
