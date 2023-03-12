@@ -9,8 +9,8 @@ state among form inputs, data submission to a service and data loading within
 that same form instance; all of it with the help of
 [React Context API](https://beta.reactjs.org/reference/react#context-hooks) and
 [React Hook Form](https://github.com/react-hook-form/react-hook-form). For the
-moment, to make a schema builder for runtime value parsing and validation,we
-have suuport for [Yup](https://github.com/jquense/yup).
+moment, to make a schema builder for runtime value parsing and validation, we
+have suport for [Yup](https://github.com/jquense/yup).
 
 # Frontend Tooling
 
