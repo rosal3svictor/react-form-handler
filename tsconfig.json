@@ -18,7 +18,9 @@
     "jsx": "react-jsx",
     "paths": {
       "@interfaces": ["src/interfaces"],
-      "@utils": ["src/utils"]
+      "@utils/*": ["src/utils/*"],
+      "@hocs/*": ["src/hocs/*"],
+      "@components/*": ["src/components/*"]
     }
   },
   "include": [

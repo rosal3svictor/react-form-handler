@@ -1,5 +1,6 @@
 import { createContext, useContext } from 'react';
 import { FormContext } from '@interfaces';
+import { FieldValues } from 'react-hook-form';
 
 /**
  * Custom Hook to create and subscribe to a form instance state
@@ -12,9 +13,11 @@ import { FormContext } from '@interfaces';
  * @returns Methods exposing individual functions to interact with the form state
  * context.
  */
-export default function useFormHelper() {
-  const context = createContext<FormContext>({} as any);
+function useFormHelper<T extends FieldValues>() {
+  const context = createContext<FormContext<T>>({} as any);
   const useFormContext = () => useContext(context);
 
   return { context, useFormContext };
 }
+
+export default useFormHelper;

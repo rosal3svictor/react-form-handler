@@ -62,39 +62,54 @@ import { isEqual } from 'lodash';
  * ```
  *```TSX
  *
- * import { useMemo, useState } from "react";
- * import { useFormHandler, useFormHelper } from "@utils";
- * import { TextField } from "@components";
- * import { FormMode } from "@interfaces";
- * import { FieldValues } from "react-hook-form";
- * import { useDemoFormHelper } from "./useDemoFormHelper";
+ * import { useMemo, useState } from 'react';
+ * import useFormHandler from '@utils/useFormHandler';
+ * import useFormHelper from '@utils/useFormHelper';
+ * import TextField from '@components/TextField';
+ * import { FormMode, DemoFormSchema, FormSchemaConstructor } from '@interfaces';
+ * import { SubmitHandler } from 'react-hook-form';
+ * import useDemoFormHelper from './useDemoFormHelper';
  *
- * export function DemoForm() {
- *    const [mode, setMode] = useState<FormMode>("create");
- *    const { context: DemoFormContext } = useFormHelper();
- *    const { defaultValues, schema } = useDemoFormHelper();
- *    const formHandler = useFormHandler<FieldValues>({
- *      defaultValues,
- *      schema,
- *    });
+ * function DemoForm() {
+ *   const [mode, setMode] = useState<FormMode>('create');
+ *   const { context: DemoFormContext } = useFormHelper<FormSchemaConstructor<DemoFormSchema>>();
+ *   const { defaultValues, schema } = useDemoFormHelper();
+ *   const formHandler = useFormHandler<FormSchemaConstructor<DemoFormSchema>>({
+ *     defaultValues,
+ *     schema,
+ *   });
  *
- *   // IMPORTANT: This prevents non-stable values (i.e. object identities)
+ *   // IMPORTANT: This prevents non-stable values (i.e. object identities
  *   // from being used as a value for Context.Provider.
  *   const value = useMemo(
  *     () => ({
- *      formHandler,
- *      mode,
- *      setMode,
- *    }),
- *    [formHandler, mode]
+ *       formHandler,
+ *       mode,
+ *       setMode,
+ *     }),
+ *     [formHandler, mode],
  *   );
+ *
+ *   const onSubmit: SubmitHandler<DemoFormSchema> = (data: DemoFormSchema) => {
+ *     console.log('Data ', data);
+ *   };
+ *
+ *   const onError = () => {
+ *     console.log('something happened ');
+ *   };
  *
  *   return (
  *     <DemoFormContext.Provider value={value}>
- *      <>
- *        <TextField name="name" formhandler={formHandler} />
- *        <TextField name="lastName" formhandler={formHandler} />
- *      </>
+ *       <form>
+ *         <TextField name="name" formhandler={formHandler} />
+ *         <TextField name="lastName" formhandler={formHandler} />
+ *         <button
+ *           type="button"
+ *           onClick={formHandler.onSubmitHandler(onSubmit, onError)}
+ *         >
+ *           Submit
+ *         </button>
+ *       </form>
  *     </DemoFormContext.Provider>
  *   );
  * }
@@ -231,6 +246,16 @@ const useFormHandler = <T extends FieldValues>(props: FormHandlerProps<T>) => {
   const formHasChanges = () =>
     !isEqual(props.defaultValues, formInstance.getValues());
 
+  /**
+   * This function will receive the form data if form validation is successful.
+   *
+   * Link to official documentation {@link https://react-hook-form.com/api/useform/handlesubmit}
+   */
+  const onSubmitHandler = (
+    onSubmit: (data: object, e?: Event) => Promise<void>,
+    onError: (errors: object, e?: Event) => Promise<void>,
+  ) => formInstance.handleSubmit(onSubmit, onError);
+
   return {
     setFormValue,
     formState,
@@ -241,6 +266,7 @@ const useFormHandler = <T extends FieldValues>(props: FormHandlerProps<T>) => {
     resetForm,
     triggerValidation,
     formHasChanges,
+    onSubmitHandler,
   };
 };
 

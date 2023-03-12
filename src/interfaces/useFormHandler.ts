@@ -3,9 +3,11 @@ import {
   Mode,
   UseFormProps,
   SetValueConfig,
+  FieldValues,
 } from 'react-hook-form';
 import { ObjectSchema, AnyObject } from 'yup';
-import { useFormHandler } from '@utils';
+import useFormHandler from '@utils/useFormHandler';
+import { AnyKey } from '@interfaces';
 
 /** General Form Instance Definition */
 export interface FormHandlerProps<T> {
@@ -25,4 +27,8 @@ export interface SetValueProps {
   options?: Omit<SetValueConfig, 'shouldValidate' | 'shouldDirty'>;
 }
 
-export type UseFormReturn = typeof useFormHandler;
+export type UseFormReturn<T extends FieldValues> = ReturnType<
+  typeof useFormHandler<T>
+>;
+
+export type FormSchemaConstructor<T> = Omit<T, AnyKey>;
