@@ -28,6 +28,7 @@ describe('useFormHandler Hook', () => {
       'resetForm',
       'triggerValidation',
       'formHasChanges',
+      'onSubmitHandler',
     ]);
   });
 
@@ -44,6 +45,7 @@ describe('useFormHandler Hook', () => {
       resetForm: expect.any(Function),
       triggerValidation: expect.any(Function),
       formHasChanges: expect.any(Function),
+      onSubmitHandler: expect.any(Function),
     });
   });
 
