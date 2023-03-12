@@ -5,6 +5,8 @@ import {
   Path,
   KeepStateOptions,
   PathValue,
+  SubmitHandler,
+  SubmitErrorHandler,
 } from 'react-hook-form';
 import { FormHandlerProps, SetValueProps } from '@interfaces';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -251,10 +253,14 @@ const useFormHandler = <T extends FieldValues>(props: FormHandlerProps<T>) => {
    *
    * Link to official documentation {@link https://react-hook-form.com/api/useform/handlesubmit}
    */
-  const onSubmitHandler = (
-    onSubmit: (data: object, e?: Event) => Promise<void>,
-    onError: (errors: object, e?: Event) => Promise<void>,
-  ) => formInstance.handleSubmit(onSubmit, onError);
+  const onSubmitHandler = <M extends FieldValues>(
+    onValid: SubmitHandler<M>,
+    onInvalid?: SubmitErrorHandler<M>,
+  ) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return formInstance.handleSubmit(onValid, onInvalid);
+  };
 
   return {
     setFormValue,
