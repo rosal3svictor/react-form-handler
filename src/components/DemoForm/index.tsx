@@ -1,42 +1,15 @@
-import { useMemo, useState } from 'react';
-import useFormHandler from '@utils/useFormHandler';
 import useFormHelper from '@utils/useFormHelper';
 import TextField from '@components/TextField';
-import { FormMode, DemoFormSchema, FormSchemaConstructor } from '@interfaces';
-import { SubmitHandler } from 'react-hook-form';
+import { DemoFormSchema, FormSchemaConstructor } from '@interfaces';
 import useDemoFormHelper from './useDemoFormHelper';
 
 function DemoForm() {
-  const [mode, setMode] = useState<FormMode>('create');
   const { context: DemoFormContext } =
     useFormHelper<FormSchemaConstructor<DemoFormSchema>>();
-  const { defaultValues, schema } = useDemoFormHelper();
-  const formHandler = useFormHandler<FormSchemaConstructor<DemoFormSchema>>({
-    defaultValues,
-    schema,
-  });
-
-  /** IMPORTANT: This prevents non-stable values (i.e. object identities)
-   * from being used as a value for Context.Provider. */
-  const value = useMemo(
-    () => ({
-      formHandler,
-      mode,
-      setMode,
-    }),
-    [formHandler, mode],
-  );
-
-  const onSubmit: SubmitHandler<DemoFormSchema> = (data: DemoFormSchema) => {
-    console.log('Data ', data);
-  };
-
-  const onError = () => {
-    console.log('something happened ');
-  };
+  const { formHandler, contextValue, onError, onSubmit } = useDemoFormHelper();
 
   return (
-    <DemoFormContext.Provider value={value}>
+    <DemoFormContext.Provider value={contextValue}>
       <form>
         <TextField name="name" formhandler={formHandler} />
         <TextField name="lastName" formhandler={formHandler} />

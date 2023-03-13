@@ -28,80 +28,90 @@ import { isEqual } from 'lodash';
  *
  * ```Text
  *
- * 1. Create a hook which will serve as a central place to define the methods
- * for the form instance. Please, follow this name convention: 'use<entityName>FormHelper.ts':
+ * 1. Create a hook which will serve as a central place to define the methods,
+ * logic of the form instance. Please, follow this name convention:
+ * 'use<entityName>FormHelper.ts':
+ *
+ * Make sure to import the hook 'useFormHandler' so you can create a new form
+ * instance, which will be expecting the 'defaultValues' and 'schema', also
+ * defined on this hook.
  * ```
  *```TSX
  *
- *  import { FormSchema } from '@interfaces';
- *  import * as yup from 'yup';
- *
- *  export const useDemoFormHelper = () => {
- *    const defaultFormData: Partial<FormSchema> = {};
- *
- *    const schema: yup.SchemaOf<FormSchema> = yup.object({});
- *
- *    return {
- *      defaultFormData,
- *      schema,
- *    };
- *  }
- * ```
- * ```Text
- *
- * 2. Since the internal form state will be handled by React Context API, it is
- * required to use the utility function 'userFormHelper' to create such context.
- *
- * Also, make sure to import the hook 'useFormHandler' so we can create a new form
- * instance, which will be expecting some information from the previously created hook.
- *
- * In order to comply with the pattern, remember that you'll need:
- *  - Hook to define the methods to deal with the form.
- *  - Implement 'userFormHelper', to provide the internal state for the form.
- *  - Implement 'useFormHandler, to create a new form instance.
- *
- * The final implementation will look like the following sample:
- * ```
- *```TSX
- *
- * import { useMemo, useState } from 'react';
+ * import { useState, useMemo } from 'react';
+ * import { DemoFormSchema, FormMode, FormSchemaConstructor } from '@interfaces';
+ * import * as yup from 'yup';
  * import useFormHandler from '@utils/useFormHandler';
- * import useFormHelper from '@utils/useFormHelper';
- * import TextField from '@components/TextField';
- * import { FormMode, DemoFormSchema, FormSchemaConstructor } from '@interfaces';
- * import { SubmitHandler } from 'react-hook-form';
- * import useDemoFormHelper from './useDemoFormHelper';
  *
- * function DemoForm() {
+ * function useDemoFormHelper() {
  *   const [mode, setMode] = useState<FormMode>('create');
- *   const { context: DemoFormContext } = useFormHelper<FormSchemaConstructor<DemoFormSchema>>();
- *   const { defaultValues, schema } = useDemoFormHelper();
+ *   const defaultValues: Record<keyof DemoFormSchema, any> = {
+ *     name: '',
+ *     lastName: '',
+ *   };
+ *
+ *   const schema = yup.object().shape<Record<keyof DemoFormSchema, yup.Schema>>({
+ *     name: yup.string().required(),
+ *     lastName: yup.string().required(),
+ *   });
  *   const formHandler = useFormHandler<FormSchemaConstructor<DemoFormSchema>>({
  *     defaultValues,
  *     schema,
  *   });
- *
- *   // IMPORTANT: This prevents non-stable values (i.e. object identities
- *   // from being used as a value for Context.Provider.
- *   const value = useMemo(
+ *   const contextValue = useMemo(
  *     () => ({
  *       formHandler,
  *       mode,
  *       setMode,
  *     }),
  *     [formHandler, mode],
- *   );
+ *    );
  *
- *   const onSubmit: SubmitHandler<DemoFormSchema> = (data: DemoFormSchema) => {
- *     console.log('Data ', data);
- *   };
+ *  const onSubmit = (data: DemoFormSchema) => {
+ *    console.log('Data ', data);
+ *  };
  *
- *   const onError = () => {
- *     console.log('something happened ');
- *   };
+ *  const onError = (errors: DemoFormSchema) => {
+ *    console.log('something happened ', errors);
+ *  };
+ *
+ *  return {
+ *    defaultValues,
+ *    schema,
+ *    onSubmit,
+ *    onError,
+ *    formHandler,
+ *    contextValue,
+ *  };
+ * }
+ * ```
+ * ```Text
+ *
+ * 2. Since the internal form state will be handled by React Context API, it is
+ * required to use the utility function 'userFormHelper' to create such context.
+ *
+ * In order to comply with the pattern, you will need to have:
+ *  - Hook to define the methods, logic to deal with the form.
+ *  - Implement 'userFormHelper', to provide the internal state for the form.
+ *  - Implement 'useFormHandler, to create a new form instance, and to manage
+ *    the form.
+ *
+ * The final implementation will look like the following sample:
+ * ```
+ *```TSX
+ *
+ * import useFormHelper from '@utils/useFormHelper';
+ * import TextField from '@components/TextField';
+ * import { DemoFormSchema, FormSchemaConstructor } from '@interfaces';
+ * import useDemoFormHelper from './useDemoFormHelper';
+ *
+ * function DemoForm() {
+ *   const { context: DemoFormContext } =
+ *     useFormHelper<FormSchemaConstructor<DemoFormSchema>>();
+ *   const { formHandler, contextValue, onError, onSubmit } = useDemoFormHelper();
  *
  *   return (
- *     <DemoFormContext.Provider value={value}>
+ *     <DemoFormContext.Provider value={contextValue}>
  *       <form>
  *         <TextField name="name" formhandler={formHandler} />
  *         <TextField name="lastName" formhandler={formHandler} />
