@@ -11,8 +11,16 @@ function DemoForm() {
   return (
     <DemoFormContext.Provider value={contextValue}>
       <form>
-        <TextField name="name" formhandler={formHandler} />
-        <TextField name="lastName" formhandler={formHandler} />
+        <TextField
+          data-testid="name-input"
+          name="name"
+          formhandler={formHandler}
+        />
+        <TextField
+          data-testid="lastName-input"
+          name="lastName"
+          formhandler={formHandler}
+        />
         <button
           type="button"
           onClick={formHandler.onSubmitHandler(onSubmit, onError)}
