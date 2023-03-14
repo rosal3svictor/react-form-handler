@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { renderHook } from '@testing-library/react-hooks';
 import { waitFor } from '@testing-library/react';
-import { defaultValues, schema } from './mocks';
+import { describe, expect, it, vi } from 'vitest';
+import { defaultValues, mockFormInstance, mockOnValid, schema } from './mocks';
 import useFormHandler from '.';
 
 /**
@@ -258,6 +260,33 @@ describe('useFormHandler Hook', () => {
       });
 
       expect(formHasChanges()).toBeTruthy();
+    });
+
+    describe('onSubmitHandler - This function will receive the form data if form validation is successful', () => {
+      beforeEach(() => {
+        vi.clearAllMocks();
+      });
+
+      it('should call onValid callback with form data if validation is successful', async () => {
+        const {
+          result: {
+            current: { onSubmitHandler },
+          },
+        } = performRender();
+
+        const onSubmit = onSubmitHandler(mockOnValid);
+
+        await waitFor(async () => {
+          // @ts-ignore
+          await onSubmit(mockFormInstance);
+        });
+
+        expect(mockOnValid).toHaveBeenCalledTimes(1);
+        expect(mockOnValid).toHaveBeenCalledWith(
+          defaultValues,
+          mockFormInstance,
+        );
+      });
     });
   });
 });

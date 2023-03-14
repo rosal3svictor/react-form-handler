@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import { vi } from 'vitest';
 import * as yup from 'yup';
 
 export interface DemoFormSchema {
@@ -24,3 +26,8 @@ export const schema = yup
     sex: yup.mixed().oneOf(['F', 'M']).required(),
     email: yup.string().required(),
   });
+
+export const mockOnValid = vi.fn();
+export const mockFormInstance = {
+  handleSubmit: vi.fn(),
+};
